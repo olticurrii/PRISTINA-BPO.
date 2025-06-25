@@ -1,5 +1,4 @@
 import React from "react";
-import "../App.css";
 
 export default function AboutSidebar({ sections, selectedIndex, onSelect }) {
   return (

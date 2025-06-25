@@ -6,12 +6,17 @@
   body {
     @apply min-h-screen;
     @apply bg-gradient-to-br from-primary-light to-primary;
+    @apply text-neutral-800;
+    @apply font-sans;
   }
 }
 
 @layer components {
   .navbar {
-    @apply flex items-center justify-between px-4 md:px-12 py-4 relative;
+    @apply flex items-center justify-between px-4 md:px-8 lg:px-12 py-4 relative;
+    @apply bg-white shadow-professional;
+    @apply border-b border-neutral-200;
+    backdrop-filter: blur(8px);
   }
 
   .navbar-logo {
@@ -19,7 +24,8 @@
   }
 
   .navbar-logo img {
-    @apply h-[100px] w-auto;
+    @apply h-16 md:h-20 lg:h-24 w-auto;
+    @apply transition-transform duration-300 hover:scale-105;
   }
 
   .navbar-links {
@@ -27,10 +33,12 @@
            bg-white md:bg-transparent
            h-screen md:h-auto
            flex flex-col md:flex-row items-center justify-center
-           gap-8 md:gap-12
+           gap-6 md:gap-8 lg:gap-12
            -translate-y-full md:translate-y-0
            transition-all duration-300 ease-in-out md:transition-none
-           z-50 md:z-auto;
+           z-50 md:z-auto
+           shadow-xl md:shadow-none;
+    backdrop-filter: blur(12px);
   }
 
   .mobile-menu-open {
@@ -38,38 +46,46 @@
   }
 
   .nav-link {
-    @apply text-lg font-medium text-gray-800 
-           hover:text-primary-dark hover:border-b-2 hover:border-primary-dark 
-           transition-colors relative
-           py-2 px-4 md:px-0
+    @apply text-lg font-semibold text-neutral-700 
+           hover:text-primary hover:border-b-2 hover:border-primary 
+           transition-all duration-300 relative
+           py-3 px-6 md:px-4
            w-full md:w-auto text-center
-           cursor-pointer;
+           cursor-pointer
+           rounded-lg md:rounded-none
+           hover:bg-neutral-50 md:hover:bg-transparent;
   }
 
   .nav-link.active {
-    @apply text-primary-dark border-b-2 border-primary-dark;
+    @apply text-primary border-b-2 border-primary bg-primary bg-opacity-5 md:bg-transparent;
   }
 
   .home-bg {
-    @apply min-h-screen pb-20;
+    @apply min-h-screen pb-20 relative;
+    @apply bg-gradient-to-br from-primary-light via-white to-neutral-50;
   }
 
   .home-content {
-    @apply max-w-7xl mx-auto px-4 md:px-12 pt-8 md:pt-16 lg:pt-24 relative z-10;
+    @apply max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-8 md:pt-16 lg:pt-24 relative z-10;
   }
 
   .home-content h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-center md:text-left;
+    @apply text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-center md:text-left;
+    @apply bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent;
+    @apply leading-tight;
   }
 
   .home-content h2 {
-    @apply text-xl md:text-2xl lg:text-3xl font-semibold mb-6 md:mb-8 text-center md:text-left;
+    @apply text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold mb-8 md:mb-10 text-center md:text-left;
+    @apply text-neutral-700;
+    @apply leading-relaxed;
   }
 
   .home-intro {
-    @apply text-base md:text-lg leading-relaxed mb-8 md:mb-10 
+    @apply text-base md:text-lg lg:text-xl leading-relaxed mb-10 md:mb-12 
            max-w-4xl text-center md:text-left
-           text-gray-800;
+           text-neutral-600;
+    @apply font-medium;
   }
 
   .home-logo-faded {
@@ -96,100 +112,108 @@
 
   .learn-more-btn {
     @apply inline-flex items-center justify-center
-           bg-gray-800 text-white 
-           px-8 md:px-10 py-3 md:py-4
-           rounded-xl text-base md:text-lg font-medium 
-           hover:bg-primary-dark hover:text-white
+           bg-gradient-to-r from-accent to-accent-dark text-white 
+           px-8 md:px-10 py-4 md:py-5
+           rounded-xl text-base md:text-lg font-semibold 
+           hover:bg-gradient-to-r hover:from-accent-dark hover:to-accent
            transition-all duration-300
-           shadow-md hover:shadow-xl
-           transform hover:-translate-y-0.5
-           mx-auto md:mx-0 block;
+           shadow-accent hover:shadow-xl
+           transform hover:-translate-y-1
+           mx-auto md:mx-0 block
+           border-0 outline-none focus:ring-4 focus:ring-accent focus:ring-opacity-30;
   }
 
   .about-bg {
     @apply min-h-screen pb-12 md:pb-20 relative
-           overflow-x-hidden;
+           overflow-x-hidden
+           bg-gradient-to-br from-neutral-50 to-white;
   }
 
   .about-container {
-    @apply max-w-7xl mx-auto px-4 md:px-12 
+    @apply max-w-7xl mx-auto px-4 md:px-8 lg:px-12 
            pt-6 md:pt-12 relative z-10;
   }
 
   .about-main-title {
-    @apply text-3xl md:text-4xl lg:text-5xl 
-           font-bold text-gray-800 
+    @apply text-3xl md:text-4xl lg:text-5xl xl:text-6xl
+           font-bold text-neutral-800 
            text-center md:text-left
            mb-8 md:mb-12;
+    @apply bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent;
   }
 
   .about-layout {
-    @apply flex flex-col md:flex-row 
+    @apply flex flex-col lg:flex-row 
            gap-8 md:gap-12 lg:gap-16
            items-start;
   }
 
   .about-sidebar {
-    @apply w-full md:w-64 lg:w-72
-           bg-white/80 md:bg-transparent
-           rounded-xl md:rounded-none
-           p-4 md:p-0
-           flex flex-row md:flex-col 
-           overflow-x-auto md:overflow-visible
-           gap-9
-           shadow-lg md:shadow-none
-           -mx-4 md:mx-0
-           px-4 md:px-0;
+    @apply w-full lg:w-80
+           bg-white
+           rounded-2xl
+           p-6
+           flex flex-row lg:flex-col 
+           overflow-x-auto lg:overflow-visible
+           gap-4 lg:gap-3
+           shadow-professional
+           border border-neutral-200;
+    backdrop-filter: blur(8px);
   }
 
   .sidebar-btn {
-    @apply min-w-[160px] md:min-w-0
+    @apply min-w-[200px] lg:min-w-0
            bg-transparent 
-           border-2 border-transparent 
-           rounded-lg px-4 py-3 
-           text-center md:text-left 
-           text-sm md:text-base text-gray-800 
-           hover:bg-primary-dark hover:text-white 
+           border-2 border-neutral-200 
+           rounded-xl px-6 py-4 
+           text-center lg:text-left 
+           text-sm md:text-base font-medium text-neutral-700 
+           hover:bg-primary hover:text-white hover:border-primary
            transition-all duration-300
-           whitespace-nowrap md:whitespace-normal;
+           whitespace-nowrap lg:whitespace-normal
+           focus:ring-4 focus:ring-primary focus:ring-opacity-20;
   }
 
   .sidebar-btn.selected {
-    @apply bg-primary-dark text-white
-           shadow-md;
+    @apply bg-primary text-white border-primary
+           shadow-professional;
   }
 
   .about-content {
     @apply flex-1 
-           bg-white/80 md:bg-transparent
-           rounded-xl md:rounded-none
-           p-6 md:p-0
-           shadow-lg md:shadow-none;
+           bg-white
+           rounded-2xl
+           p-8
+           shadow-professional
+           border border-neutral-200;
+    backdrop-filter: blur(8px);
   }
 
   .about-content h2 {
     @apply text-2xl md:text-3xl lg:text-4xl 
-           font-bold text-gray-800 
-           mb-4
-           text-center md:text-left;
+           font-bold text-neutral-800 
+           mb-6
+           text-center lg:text-left;
   }
 
   .about-underline {
     @apply w-24 md:w-32 h-1 
-           bg-primary-dark 
-           mb-6 md:mb-8
-           mx-auto md:mx-0;
+           bg-gradient-to-r from-accent to-accent-dark
+           mb-8
+           mx-auto lg:mx-0
+           rounded-full;
   }
 
   .about-content p {
     @apply text-base md:text-lg 
            leading-relaxed 
-           text-gray-700
-           text-center md:text-left;
+           text-neutral-600
+           text-center lg:text-left
+           font-medium;
   }
 
   .about-side-logo {
-    @apply hidden lg:block 
+    @apply hidden xl:block 
            fixed top-1/2 right-0 
            transform -translate-y-1/2 
            z-0 pointer-events-none
@@ -201,139 +225,313 @@
   }
 
   .services-bg {
-    @apply min-h-screen pb-20;
+    @apply min-h-screen pb-20
+           bg-gradient-to-br from-neutral-50 to-white;
   }
 
   .services-section {
-    @apply max-w-7xl mx-auto px-4 md:px-12 pt-8 md:pt-16;
+    @apply max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-8 md:pt-16;
   }
 
   .services-title {
-    @apply text-3xl md:text-4xl lg:text-5xl 
-           font-bold text-center text-gray-800 
-           mb-4 md:mb-6;
+    @apply text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-center mb-8 md:mb-12;
+    @apply bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent;
   }
 
   .services-desc {
-    @apply text-base md:text-lg text-center 
-           text-gray-700 max-w-3xl mx-auto 
-           mb-12 md:mb-16 leading-relaxed;
+    @apply text-lg md:text-xl text-neutral-600 text-center max-w-4xl mx-auto mb-12 md:mb-16;
+    @apply font-medium leading-relaxed;
   }
 
   .services-grid {
-    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 
-           gap-6 md:gap-8 max-w-6xl mx-auto;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8;
   }
 
   .service-card {
-    @apply bg-white/90 rounded-xl p-6 md:p-8
-           shadow-lg hover:shadow-xl
+    @apply bg-white rounded-2xl p-6 md:p-8
+           shadow-professional hover:shadow-xl
            transition-all duration-300
-           transform hover:-translate-y-1;
+           border border-neutral-200
+           hover:border-primary hover:border-opacity-30
+           transform hover:-translate-y-2;
   }
 
   .service-card-title {
-    @apply text-xl md:text-2xl font-bold 
-           text-gray-800 mb-4 text-center;
+    @apply text-xl md:text-2xl font-bold text-neutral-800 mb-4;
   }
 
   .service-card-desc {
-    @apply text-gray-600 leading-relaxed text-center
-           text-base md:text-lg;
+    @apply text-neutral-600 leading-relaxed font-medium;
   }
 
   .contact-section {
-    @apply w-full max-w-2xl mx-auto py-8 md:py-16 px-4 md:px-12;
+    @apply max-w-4xl mx-auto px-4 md:px-8 lg:px-12 pt-8 md:pt-16;
   }
 
   .contact-form {
-    @apply flex flex-col gap-4;
+    @apply bg-white rounded-2xl p-8 md:p-12 shadow-professional;
   }
 
   .contact-form input,
   .contact-form textarea {
-    @apply border-2 border-primary rounded-lg px-4 py-3 
-           bg-white/90 focus:border-gray-800 outline-none transition-colors;
+    @apply w-full px-6 py-4 rounded-xl border-2 border-neutral-200
+           focus:border-primary focus:ring-4 focus:ring-primary focus:ring-opacity-20
+           transition-all duration-300
+           font-medium text-neutral-700
+           placeholder-neutral-400;
   }
 
   .contact-btn {
-    @apply bg-gray-800 text-white px-6 md:px-9 py-3 rounded-2xl text-base font-medium 
-           hover:bg-primary-dark hover:text-white transition-colors
-           w-full md:w-auto;
+    @apply bg-gradient-to-r from-accent to-accent-dark text-white px-8 py-4 rounded-xl
+           font-semibold text-lg
+           hover:bg-gradient-to-r hover:from-accent-dark hover:to-accent
+           transition-all duration-300
+           shadow-accent hover:shadow-xl
+           transform hover:-translate-y-1
+           focus:ring-4 focus:ring-accent focus:ring-opacity-30;
   }
 
   .footer {
-    @apply border-t-2 border-gray-800/10 py-6 md:py-8 px-4 md:px-12 mt-8 md:mt-12;
+    @apply bg-neutral-900 text-white py-12 md:py-16;
   }
 
   .footer-main {
-    @apply flex flex-col md:flex-row justify-between items-center md:items-end gap-4 md:gap-0;
+    @apply max-w-7xl mx-auto px-4 md:px-8 lg:px-12;
   }
 
   .footer-media {
-    @apply text-center md:text-right;
+    @apply flex justify-center md:justify-end items-center gap-6;
   }
 
   .footer-icons {
-    @apply flex gap-4 mt-2;
+    @apply flex gap-4;
   }
 
   .footer-icons a {
-    @apply text-gray-800 hover:text-primary-dark transition-colors;
+    @apply text-neutral-400 hover:text-accent transition-colors duration-300;
   }
 
   .home-services {
-    @apply max-w-7xl mx-auto px-4 md:px-12 
-           py-16 md:py-24 relative z-10 mt-40 ;
+    @apply max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-16 md:py-24;
   }
 
   .home-services h2 {
-    @apply text-3xl md:text-4xl lg:text-5xl 
-           font-bold text-gray-800 mb-4 
-           text-center;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-12;
+    @apply bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent;
   }
 
   .home-services-desc {
-    @apply text-base md:text-lg text-gray-700 
-           max-w-3xl mx-auto mb-12 md:mb-16
-           text-center leading-relaxed
-           px-4;
+    @apply text-lg md:text-xl text-neutral-600 text-center max-w-4xl mx-auto mb-12 md:mb-16;
+    @apply font-medium leading-relaxed;
   }
 
   .home-services-grid {
-    @apply grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 
-           mb-12 md:mb-16 max-w-5xl mx-auto;
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-12;
   }
 
   .home-service-card {
-    @apply relative rounded-xl overflow-hidden 
-           aspect-[16/10] md:aspect-[4/3]
-           shadow-lg hover:shadow-xl
-           transition-all duration-300
-           transform hover:-translate-y-1;
+    @apply relative overflow-hidden rounded-2xl
+           shadow-professional hover:shadow-xl
+           transition-all duration-500
+           transform hover:-translate-y-2
+           cursor-pointer;
   }
 
   .home-service-card img {
-    @apply w-full h-full object-cover 
-           transition-transform duration-500
-           filter brightness-90;
+    @apply w-full h-48 md:h-56 object-cover
+           transition-transform duration-500;
   }
 
   .group:hover .home-service-card img {
-    @apply scale-110 brightness-75;
+    @apply scale-110;
   }
 
   .home-service-overlay {
-    @apply absolute inset-0 
-           bg-gradient-to-t from-black/70 to-black/30
-           flex items-center justify-center
-           transition-opacity duration-300
-           p-6;
+    @apply absolute inset-0 bg-gradient-to-t from-primary via-primary to-transparent
+           flex items-end p-6
+           transition-all duration-300;
+    background: linear-gradient(to top, rgba(30, 58, 138, 0.9), rgba(30, 58, 138, 0.5), transparent);
   }
 
   .home-service-overlay h3 {
-    @apply text-lg md:text-xl lg:text-2xl 
-           font-bold text-white text-center
-           drop-shadow-lg;
+    @apply text-white text-lg md:text-xl font-bold
+           leading-tight;
+  }
+
+  /* Lazy loading animations */
+  .lazy-load {
+    @apply transition-all duration-700 ease-out;
+  }
+
+  .lazy-load.fade-in {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .lazy-load.fade-out {
+    @apply opacity-0 translate-y-8;
+  }
+
+  .lazy-load.slide-in {
+    @apply opacity-100 translate-x-0;
+  }
+
+  .lazy-load.slide-out {
+    @apply opacity-0 -translate-x-8;
+  }
+
+  /* Loading spinner enhancements */
+  .loading-spinner {
+    @apply animate-spin rounded-full border-4 border-neutral-200 border-t-primary;
+  }
+
+  .loading-dots {
+    @apply flex space-x-1;
+  }
+
+  .loading-dots span {
+    @apply w-2 h-2 bg-primary rounded-full animate-pulse;
+    animation-delay: calc(var(--i) * 0.2s);
+  }
+
+  /* Image loading states */
+  .image-skeleton {
+    @apply bg-neutral-200 animate-pulse rounded-lg;
+  }
+
+  .image-loaded {
+    @apply opacity-100;
+  }
+
+  .image-loading {
+    @apply opacity-0;
+  }
+
+  /* Additional mobile responsiveness improvements */
+  @media (max-width: 768px) {
+    .home-content h1 {
+      @apply text-3xl md:text-4xl;
+    }
+    
+    .home-content h2 {
+      @apply text-lg md:text-xl;
+    }
+    
+    .home-intro {
+      @apply text-sm md:text-base;
+    }
+    
+    .learn-more-btn {
+      @apply px-6 py-3 text-sm;
+    }
+    
+    .about-sidebar {
+      @apply -mx-4 px-4;
+    }
+    
+    .sidebar-btn {
+      @apply min-w-[180px] px-4 py-3 text-sm;
+    }
+    
+    .service-card {
+      @apply p-4 md:p-6;
+    }
+    
+    .contact-form {
+      @apply p-6 md:p-8;
+    }
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus styles for accessibility */
+  .nav-link:focus,
+  .sidebar-btn:focus,
+  .learn-more-btn:focus,
+  .contact-btn:focus {
+    @apply outline-none ring-4 ring-primary ring-opacity-30;
+  }
+
+  /* Loading states */
+  .btn-loading {
+    @apply opacity-75 cursor-not-allowed;
+  }
+
+  /* Animation classes */
+  .fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .slide-up {
+    animation: slideUp 0.6s ease-out;
+  }
+
+  .slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+  }
+
+  .slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { 
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from { 
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from { 
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Progressive loading for images */
+  .progressive-image {
+    @apply relative overflow-hidden;
+  }
+
+  .progressive-image img {
+    @apply transition-opacity duration-500;
+  }
+
+  .progressive-image .placeholder {
+    @apply absolute inset-0 bg-neutral-200 animate-pulse;
+  }
+
+  .progressive-image .main-image {
+    @apply opacity-0;
+  }
+
+  .progressive-image .main-image.loaded {
+    @apply opacity-100;
   }
 } 
