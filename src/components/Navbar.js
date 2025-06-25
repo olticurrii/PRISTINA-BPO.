@@ -15,6 +15,19 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -46,21 +59,39 @@ export default function Navbar() {
       
       {/* Mobile Menu Button */}
       <button 
-        className="md:hidden p-3 z-50 relative rounded-lg hover:bg-neutral-100 transition-colors duration-200"
+        className="md:hidden p-3 z-[10000] relative rounded-lg hover:bg-neutral-100 transition-colors duration-200"
         onClick={toggleMenu}
         aria-label="Toggle menu"
       >
-        <div className="w-6 h-6 flex flex-col justify-center items-center">
-          <span className={`block w-6 h-0.5 bg-neutral-700 transition-all duration-300 ${isMenuOpen ? 'rotate-45 translate-y-1' : '-translate-y-1'}`}></span>
-          <span className={`block w-6 h-0.5 bg-neutral-700 transition-all duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-          <span className={`block w-6 h-0.5 bg-neutral-700 transition-all duration-300 ${isMenuOpen ? '-rotate-45 -translate-y-1' : 'translate-y-1'}`}></span>
+        <div className="w-6 h-6 flex flex-col justify-center items-center relative">
+          <span 
+            className={`block w-6 h-0.5 bg-neutral-700 transition-all duration-300 ease-in-out ${
+              isMenuOpen 
+                ? 'rotate-45 translate-y-0.5' 
+                : '-translate-y-1.5'
+            }`}
+          ></span>
+          <span 
+            className={`block w-6 h-0.5 bg-neutral-700 transition-all duration-300 ease-in-out ${
+              isMenuOpen 
+                ? 'opacity-0 scale-0' 
+                : 'opacity-100 scale-100'
+            }`}
+          ></span>
+          <span 
+            className={`block w-6 h-0.5 bg-neutral-700 transition-all duration-300 ease-in-out ${
+              isMenuOpen 
+                ? '-rotate-45 -translate-y-0.5' 
+                : 'translate-y-1.5'
+            }`}
+          ></span>
         </div>
       </button>
 
       {/* Overlay for mobile menu */}
       {isMenuOpen && (
         <div 
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 md:hidden"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[9998] md:hidden"
           onClick={closeMenu}
           aria-hidden="true"
         />

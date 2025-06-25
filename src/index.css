@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global z-index management for mobile menu */
+.navbar-links.mobile-menu-open {
+  z-index: 9999 !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  background-color: white !important;
+}
+
 @layer base {
   body {
     @apply min-h-screen;
@@ -17,6 +28,7 @@
     @apply bg-white shadow-professional;
     @apply border-b border-neutral-200;
     backdrop-filter: blur(8px);
+    z-index: 1000;
   }
 
   .navbar-logo {
@@ -36,7 +48,7 @@
            gap-6 md:gap-8 lg:gap-12
            -translate-y-full md:translate-y-0
            transition-all duration-300 ease-in-out md:transition-none
-           z-50 md:z-auto
+           z-[9999] md:z-auto
            shadow-xl md:shadow-none;
     backdrop-filter: blur(12px);
   }
@@ -533,5 +545,43 @@
 
   .progressive-image .main-image.loaded {
     @apply opacity-100;
+  }
+
+  /* Ensure mobile menu is always visible when open */
+  @media (max-width: 768px) {
+    .navbar-links.mobile-menu-open {
+      @apply translate-y-0 opacity-100;
+      transform: translateY(0) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    
+    .navbar-links:not(.mobile-menu-open) {
+      @apply -translate-y-full opacity-0;
+      transform: translateY(-100%) !important;
+    }
+
+    /* Ensure no other elements interfere with mobile menu */
+    .home-bg,
+    .about-bg,
+    .services-bg,
+    .contact-bg {
+      z-index: 1;
+    }
+
+    .home-content,
+    .about-container,
+    .services-section,
+    .contact-section {
+      z-index: 1;
+    }
+
+    .home-logo-faded,
+    .home-side-logo,
+    .about-side-logo {
+      z-index: 1;
+    }
   }
 } 
