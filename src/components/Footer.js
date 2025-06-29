@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useLanguage } from "../contexts/LanguageContext";
+import { translations } from "../translations/translations";
 
 export default function Footer() {
   const [logoLoaded, setLogoLoaded] = useState(false);
+  const { language } = useLanguage();
+  const t = translations[language];
 
   const handleLogoLoad = () => {
     setLogoLoaded(true);
@@ -54,7 +58,7 @@ export default function Footer() {
 
           {/* Social Media */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white">Follow Us</h4>
+            <h4 className="text-lg font-semibold text-white">{t.footer.followUs}</h4>
             <p className="text-neutral-300">
               Stay connected with us on social media for the latest updates and insights.
             </p>
@@ -86,7 +90,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-neutral-800 mt-8 pt-8 text-center">
           <p className="text-neutral-400">
-            © 2025 Pristina BPO. All rights reserved. | 
+            © 2025 Pristina BPO. {t.footer.rights} | 
             <a href="/privacy" className="text-accent hover:text-accent-light transition-colors duration-300 ml-1">
               Privacy Policy
             </a> | 

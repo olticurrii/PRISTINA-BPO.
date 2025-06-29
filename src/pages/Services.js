@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { services } from "../data/data";
+import { useLanguage } from "../contexts/LanguageContext";
+import { translations } from "../translations/translations";
 
 export default function Services() {
   const [isVisible, setIsVisible] = useState(false);
   const servicesRef = useRef(null);
+  const { language } = useLanguage();
+  const t = translations[language];
+  const currentServices = services[language];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -25,14 +30,12 @@ export default function Services() {
   return (
     <div className="services-bg" ref={servicesRef}>
       <div className={`services-section transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <h2 className="services-title">Our Services</h2>
+        <h2 className="services-title">{t.home.ourServices}</h2>
         <p className="services-desc">
-          We provide high-quality outsourcing solutions tailored to your business needs. 
-          Our comprehensive range of services helps companies streamline operations, 
-          reduce costs, and focus on their core competencies.
+          {t.home.servicesDesc}
         </p>
         <div className="services-grid">
-          {services.map((service, index) => (
+          {currentServices.map((service, index) => (
             <div 
               key={service.title} 
               className={`service-card group transition-all duration-700 delay-${index * 100} ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
@@ -62,10 +65,10 @@ export default function Services() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/contact" className="learn-more-btn">
-              Get Started Today
+              {t.home.getStarted}
             </a>
             <a href="/about" className="learn-more-btn bg-gradient-to-r from-secondary to-secondary-dark hover:from-secondary-dark hover:to-secondary">
-              Learn More About Us
+              {t.home.learnMore}
             </a>
           </div>
         </div>

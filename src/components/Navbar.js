@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { useLanguage } from "../contexts/LanguageContext";
+import { translations } from "../translations/translations";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [logoLoaded, setLogoLoaded] = useState(false);
+  const { language } = useLanguage();
+  const t = translations[language];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,7 +115,7 @@ export default function Navbar() {
           }
           onClick={closeMenu}
         >
-          About Us
+          {t.nav.aboutUs}
         </NavLink>
         <NavLink 
           to="/services" 
@@ -119,7 +124,7 @@ export default function Navbar() {
           }
           onClick={closeMenu}
         >
-          Services
+          {t.nav.services}
         </NavLink>
         <NavLink 
           to="/contact" 
@@ -128,9 +133,21 @@ export default function Navbar() {
           }
           onClick={closeMenu}
         >
-          Contact Us
+          {t.nav.contactUs}
         </NavLink>
+        
+        {/* Language Switcher */}
+        <div className="hidden md:block">
+          <LanguageSwitcher />
+        </div>
       </div>
+
+      {/* Mobile Language Switcher */}
+      {isMenuOpen && (
+        <div className="md:hidden absolute top-20 right-4 z-[10001]">
+          <LanguageSwitcher />
+        </div>
+      )}
     </nav>
   );
 } 

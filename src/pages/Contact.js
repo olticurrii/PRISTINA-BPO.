@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLanguage } from "../contexts/LanguageContext";
+import { translations } from "../translations/translations";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const contactRef = useRef(null);
+  const { language } = useLanguage();
+  const t = translations[language];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -42,11 +46,10 @@ export default function Contact() {
       <div className={`contact-section transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-800 mb-6">
-            Contact Us
+            {t.contact.title}
           </h2>
           <p className="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto">
-            Ready to transform your business? Let's discuss how our outsourcing solutions 
-            can help you achieve your goals.
+            {t.contact.subtitle}
           </p>
         </div>
         
@@ -109,7 +112,7 @@ export default function Contact() {
                 <input
                   type="text"
                   name="name"
-                  placeholder="Your Name"
+                  placeholder={t.contact.placeholder.name}
                   value={form.name}
                   onChange={handleChange}
                   required
@@ -118,7 +121,7 @@ export default function Contact() {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Your Email"
+                  placeholder={t.contact.placeholder.email}
                   value={form.email}
                   onChange={handleChange}
                   required
@@ -135,7 +138,7 @@ export default function Contact() {
               />
               <textarea
                 name="message"
-                placeholder="Tell us about your project or how we can help..."
+                placeholder={t.contact.placeholder.message}
                 value={form.message}
                 onChange={handleChange}
                 required
@@ -143,7 +146,7 @@ export default function Contact() {
                 className="contact-form textarea"
               />
               <button type="submit" className="contact-btn w-full">
-                {submitted ? 'Message Sent!' : 'Send Message'}
+                {submitted ? 'Message Sent!' : t.contact.send}
               </button>
             </form>
             

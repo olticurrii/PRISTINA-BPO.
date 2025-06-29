@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { aboutSections } from "../data/data";
+import { useLanguage } from "../contexts/LanguageContext";
+import { translations } from "../translations/translations";
 import AboutSidebar from "../components/AboutSidebar";
 
 export default function About() {
   const [selected, setSelected] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const aboutRef = useRef(null);
+  const { language } = useLanguage();
+  const t = translations[language];
+  const currentSections = aboutSections[language];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -35,15 +40,16 @@ export default function About() {
         
         <div className={`about-layout transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <AboutSidebar
-            sections={aboutSections}
+            sections={currentSections}
             selectedIndex={selected}
             onSelect={setSelected}
+            language={language}
           />
           <div className="about-content">
-            <h2>{aboutSections[selected].title}</h2>
+            <h2>{currentSections[selected].title}</h2>
             <div className="about-underline" />
             <div className="prose prose-lg max-w-none">
-              <p>{aboutSections[selected].content}</p>
+              <p>{currentSections[selected].content}</p>
             </div>
           </div>
         </div>
