@@ -4,12 +4,16 @@ import { translations } from "../translations/translations";
 import emailjs from '@emailjs/browser';
 import { emailjsConfig } from "../config/emailjs";
 
+// Initialize EmailJS
+emailjs.init(emailjsConfig.publicKey);
+
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [emailValidation, setEmailValidation] = useState({ isValid: true, message: "" });
   const contactRef = useRef(null);
   const formRef = useRef(null);
   const { language } = useLanguage();
@@ -32,14 +36,103 @@ export default function Contact() {
     return () => observer.disconnect();
   }, []);
 
+  // Email validation function using Abstract API (100 free verifications/month)
+  const validateEmail = async (email) => {
+    // Basic email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return { isValid: false, message: "Please enter a valid email address" };
+    }
+
+    // Use Abstract API for comprehensive email validation
+    try {
+      const emailCheckResponse = await fetch(`https://emailvalidation.abstractapi.com/v1/?api_key=d464d3ad2c4f45baa8e9fcf56dbafcb3&email=${email}`);
+      const emailData = await emailCheckResponse.json();
+      
+      // Check if email is valid and deliverable
+      if (emailData.is_valid_format?.value && emailData.deliverability === 'DELIVERABLE') {
+        return { isValid: true, message: "Email address is valid and deliverable" };
+      } 
+      // Check if it's a disposable email
+      else if (emailData.is_disposable_email?.value) {
+        return { isValid: false, message: "Disposable email addresses are not allowed" };
+      } 
+      // Check if format is valid but not deliverable
+      else if (emailData.is_valid_format?.value && emailData.deliverability === 'UNDELIVERABLE') {
+        return { isValid: false, message: "Email address may not exist" };
+      } 
+      // Check if it's risky
+      else if (emailData.is_valid_format?.value && emailData.deliverability === 'RISKY') {
+        return { isValid: false, message: "Email address appears to be risky" };
+      } 
+      // Check if format is invalid
+      else if (!emailData.is_valid_format?.value) {
+        return { isValid: false, message: "Email format is invalid" };
+      }
+      // Default case - if we can't determine, allow it
+      else {
+        return { isValid: true, message: "Email format is valid" };
+      }
+    } catch (error) {
+      // If Abstract API fails (rate limit, network error, etc.), fall back to basic validation
+      console.log('Abstract API failed, using basic validation fallback');
+      
+      // Fallback to basic validation (always available)
+      const domain = email.split('@')[1].toLowerCase();
+      
+      // Check for common disposable email domains
+      const disposableDomains = [
+        '10minutemail.com', 'tempmail.org', 'guerrillamail.com', 'mailinator.com',
+        'yopmail.com', 'throwaway.email', 'temp-mail.org', 'sharklasers.com',
+        'getairmail.com', 'mailnesia.com', 'maildrop.cc', 'mailmetrash.com'
+      ];
+      
+      if (disposableDomains.includes(domain)) {
+        return { isValid: false, message: "Disposable email addresses are not allowed" };
+      }
+
+      // Check if email domain exists using Google DNS (free fallback)
+      try {
+        const response = await fetch(`https://dns.google/resolve?name=${domain}&type=MX`);
+        const data = await response.json();
+        
+        if (data.Status === 0 && data.Answer && data.Answer.length > 0) {
+          return { isValid: true, message: "Email format and domain are valid" };
+        } else {
+          return { isValid: false, message: "Email domain does not exist" };
+        }
+      } catch (dnsError) {
+        return { isValid: true, message: "Email format is valid" };
+      }
+    }
+  };
+
   function handleChange(e) {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    
     // Clear error when user starts typing
     if (error) setError("");
+    
+    // Validate email in real-time
+    if (name === 'email' && value) {
+      validateEmail(value).then(result => {
+        setEmailValidation(result);
+      });
+    } else if (name === 'email' && !value) {
+      setEmailValidation({ isValid: true, message: "" });
+    }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+    
+    // Check if email is valid before submitting
+    if (!emailValidation.isValid) {
+      setError("Please enter a valid email address before submitting");
+      return;
+    }
+
     setIsLoading(true);
     setError("");
 
@@ -56,6 +149,7 @@ export default function Contact() {
         console.log('SUCCESS!', response.status, response.text);
         setSubmitted(true);
         setForm({ name: "", email: "", company: "", message: "" });
+        setEmailValidation({ isValid: true, message: "" });
         
         // Reset form after 5 seconds
         setTimeout(() => {
@@ -137,16 +231,46 @@ export default function Contact() {
                   className="contact-form input"
                   disabled={isLoading}
                 />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder={t.contact.placeholder.email}
-                  value={form.email}
-                  onChange={handleChange}
-                  required
-                  className="contact-form input"
-                  disabled={isLoading}
-                />
+                <div className="relative">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder={t.contact.placeholder.email}
+                    value={form.email}
+                    onChange={handleChange}
+                    required
+                    className={`contact-form input ${
+                      form.email && !emailValidation.isValid 
+                        ? 'border-red-300 focus:border-red-500 focus:ring-red-200' 
+                        : form.email && emailValidation.isValid 
+                        ? 'border-green-300 focus:border-green-500 focus:ring-green-200' 
+                        : ''
+                    }`}
+                    disabled={isLoading}
+                  />
+                  {form.email && (
+                    <div className={`absolute right-3 top-1/2 transform -translate-y-1/2 ${
+                      emailValidation.isValid ? 'text-green-500' : 'text-red-500'
+                    }`}>
+                      {emailValidation.isValid ? (
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                        </svg>
+                      ) : (
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </div>
+                  )}
+                  {form.email && emailValidation.message && (
+                    <p className={`text-sm mt-1 ${
+                      emailValidation.isValid ? 'text-green-600' : 'text-red-600'
+                    }`}>
+                      {emailValidation.message}
+                    </p>
+                  )}
+                </div>
               </div>
               <input
                 type="text"
@@ -170,7 +294,7 @@ export default function Contact() {
               <button 
                 type="submit" 
                 className={`contact-btn w-full ${isLoading ? 'opacity-75 cursor-not-allowed' : ''}`}
-                disabled={isLoading}
+                disabled={isLoading || (form.email && !emailValidation.isValid)}
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center space-x-2">
