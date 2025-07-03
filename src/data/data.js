@@ -53,7 +53,7 @@ export const aboutSections = {
     },
     {
       title: "Përfitimet Financiare",
-      content: `Përfitimet financiare të jashtëzimit me ne janë të rëndësishme. Kostot e punës dhe operacionale në Kosovë janë dukshëm më të ulëta se në tregjet perëndimore, duke lejuar klientët tanë të arrijnë kursime të konsiderueshme pa kompromis në cilësi. Bizneset që partnerizohen me ne shpesh përjetojnë ulje të kostove deri në 60%, duke u lejuar atyre të riinvestojnë në iniciativa rritjeje, inovacion dhe zhvillim strategjik. Struktura jonë transparente e çmimeve siguron që klientët të paguajnë vetëm për atë që kanë nevojë, duke ofruar një balanc ideal midis përballueshmërisë dhe performancës.`
+      content: `Përfitimet financiare të jashtëzimit me ne janë të rëndësishme. Kostot e punës dhe operacionale në Kosovë janë dukshëm më të ulëta se në tregjet perëndimore, duke lejuar klientët tanë të arrijnë kursime të konsiderueshme pa kompromis në cilësi. Bizneset që partnerizohen me ne shpesh përjetojnë ulje të kostove deri në 60%, duke u lejuar atyre të riinvestojnë në iniciativan rritjeje, inovacion dhe zhvillim strategjik. Struktura jonë transparente e çmimeve siguron që klientët të paguajnë vetëm për atë që kanë nevojë, duke ofruar një balanc ideal midis përballueshmërisë dhe performancës.`
     },
     {
       title: "Integrimi i Pandërprerë",
@@ -78,24 +78,16 @@ export const services = {
       description: "We handle essential business operations, allowing companies to focus on core activities while we take care of the rest."
     },
     {
-      title: "Customer Support",
-      description: "Our skilled team ensures seamless customer service with multilingual support and 24/7 availability."
+      title: "Bookkeeping",
+      description: "Professional bookkeeping services including financial records, payroll management, and tax preparation to keep your business compliant and organized."
     },
     {
-      title: "Back-Office Operations",
-      description: "From data entry to document processing, we manage back-office tasks with precision and efficiency."
+      title: "Software Development",
+      description: "Custom software solutions, web applications, and mobile apps developed with cutting-edge technologies to drive your business forward."
     },
     {
-      title: "IT & Technical Support",
-      description: "We provide expert IT support, including software management, troubleshooting, and cybersecurity solutions."
-    },
-    {
-      title: "Finance & Accounting",
-      description: "Our financial experts assist with bookkeeping, payroll, and financial analysis to streamline operations."
-    },
-    {
-      title: "HR & Recruitment",
-      description: "We help businesses find the right talent, manage HR processes, and ensure smooth employee onboarding."
+      title: "Graphic Design",
+      description: "Creative design services including branding, marketing materials, and digital assets that help your business stand out in the market."
     }
   ],
   sq: [
@@ -104,24 +96,16 @@ export const services = {
       description: "Ne menaxhojmë operacionet thelbësore të biznesit, duke lejuar kompanitë të fokusohen në aktivitetet kryesore ndërsa ne kujdesemi për pjesën tjetër."
     },
     {
-      title: "Mbështetja e Klientëve",
-      description: "Ekipi ynë i kualifikuar siguron shërbim të pandërprerë të klientëve me mbështetje shumëgjuhëshe dhe disponueshmëri 24/7."
+      title: "Kontabiliteti",
+      description: "Shërbime profesionale kontabiliteti duke përfshirë regjistrat financiarë, menaxhimin e pagave dhe përgatitjen e taksave për të mbajtur biznesin tuaj të përputhshëm dhe të organizuar."
     },
     {
-      title: "Operacionet e Zyrave të Pasme",
-      description: "Nga futja e të dhënave deri te përpunimi i dokumenteve, ne menaxhojmë detyrat e zyrave të pasme me saktësi dhe efikasitet."
+      title: "Zhvillimi i Softuerit",
+      description: "Zgjidhje softuerike të personalizuara, aplikacione web dhe aplikacione mobile të zhvilluara me teknologji të avancuara për të drejtuar biznesin tuaj përpara."
     },
     {
-      title: "Mbështetja IT dhe Teknike",
-      description: "Ne ofrojmë mbështetje ekspert IT, duke përfshirë menaxhimin e softuerit, zgjidhjen e problemeve dhe zgjidhjet e sigurisë kibernetike."
-    },
-    {
-      title: "Financa dhe Kontabiliteti",
-      description: "Ekspertët tanë financiarë ndihmojnë me kontabilitetin, pagat dhe analizën financiare për të optimizuar operacionet."
-    },
-    {
-      title: "Burimet Njerëzore dhe Rekrutimi",
-      description: "Ne ndihmojmë bizneset të gjejnë talentin e duhur, të menaxhojnë proceset e HR dhe të sigurojnë integrimin e qetë të punonjësve."
+      title: "Dizajni Grafik",
+      description: "Shërbime dizajni krijuese duke përfshirë branding, materiale marketing dhe asete dixhitale që ndihmojnë biznesin tuaj të dallohet në treg."
     }
   ]
 }; 

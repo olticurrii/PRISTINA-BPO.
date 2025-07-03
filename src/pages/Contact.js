@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { translations } from "../translations/translations";
+import emailjs from '@emailjs/browser';
+import { emailjsConfig } from "../config/emailjs";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const contactRef = useRef(null);
+  const formRef = useRef(null);
   const { language } = useLanguage();
   const t = translations[language];
 
@@ -29,16 +34,41 @@ export default function Contact() {
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
+    // Clear error when user starts typing
+    if (error) setError("");
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    setSubmitted(true);
-    // Reset form after submission
-    setTimeout(() => {
-      setForm({ name: "", email: "", company: "", message: "" });
-      setSubmitted(false);
-    }, 3000);
+    setIsLoading(true);
+    setError("");
+
+    const templateParams = {
+      from_name: form.name,
+      from_email: form.email,
+      company: form.company,
+      message: form.message,
+      to_name: 'Pristina BPO Team'
+    };
+
+    emailjs.send(emailjsConfig.serviceId, emailjsConfig.templateId, templateParams, emailjsConfig.publicKey)
+      .then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+        setSubmitted(true);
+        setForm({ name: "", email: "", company: "", message: "" });
+        
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          setSubmitted(false);
+        }, 5000);
+      })
+      .catch((err) => {
+        console.log('FAILED...', err);
+        setError('Failed to send message. Please try again or contact us directly.');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
 
   return (
@@ -89,25 +119,13 @@ export default function Contact() {
                   <p className="text-neutral-600">info@pristinabpo.com</p>
                 </div>
               </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-accent to-accent-dark rounded-xl flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-neutral-800">Phone</h4>
-                  <p className="text-neutral-600">+383 38 XXX XXX</p>
-                </div>
-              </div>
             </div>
           </div>
 
           {/* Contact Form */}
-          <div className="contact-form">
+          <div className="contact-form mb-12">
             <h3 className="text-2xl font-bold text-neutral-800 mb-6">Send us a Message</h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input
                   type="text"
@@ -117,6 +135,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="contact-form input"
+                  disabled={isLoading}
                 />
                 <input
                   type="email"
@@ -126,6 +145,7 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   className="contact-form input"
+                  disabled={isLoading}
                 />
               </div>
               <input
@@ -135,6 +155,7 @@ export default function Contact() {
                 value={form.company}
                 onChange={handleChange}
                 className="contact-form input"
+                disabled={isLoading}
               />
               <textarea
                 name="message"
@@ -144,11 +165,34 @@ export default function Contact() {
                 required
                 rows={6}
                 className="contact-form textarea"
+                disabled={isLoading}
               />
-              <button type="submit" className="contact-btn w-full">
-                {submitted ? 'Message Sent!' : t.contact.send}
+              <button 
+                type="submit" 
+                className={`contact-btn w-full ${isLoading ? 'opacity-75 cursor-not-allowed' : ''}`}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <div className="flex items-center justify-center space-x-2">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <span>Sending...</span>
+                  </div>
+                ) : (
+                  submitted ? 'Message Sent!' : t.contact.send
+                )}
               </button>
             </form>
+            
+            {error && (
+              <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-xl text-red-800">
+                <div className="flex items-center space-x-2">
+                  <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                  <span className="font-medium">{error}</span>
+                </div>
+              </div>
+            )}
             
             {submitted && (
               <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-800">
