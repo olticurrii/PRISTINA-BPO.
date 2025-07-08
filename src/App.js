@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useRouteError } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -9,6 +9,8 @@ const Home = React.lazy(() => import("./pages/Home"));
 const About = React.lazy(() => import("./pages/About"));
 const Services = React.lazy(() => import("./pages/Services"));
 const Contact = React.lazy(() => import("./pages/Contact"));
+const ErrorPage = React.lazy(() => import("./pages/ErrorPage"));
+const TestError = React.lazy(() => import("./pages/TestError"));
 
 // Loading component
 const LoadingSpinner = () => (
@@ -20,6 +22,12 @@ const LoadingSpinner = () => (
   </div>
 );
 
+// Error boundary component
+const ErrorBoundary = () => {
+  const error = useRouteError();
+  return <ErrorPage />;
+};
+
 function App() {
   return (
     <LanguageProvider>
@@ -28,12 +36,13 @@ function App() {
         <main className="main-content">
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="/" element={<Home />} errorElement={<ErrorBoundary />} />
+              <Route path="/about" element={<About />} errorElement={<ErrorBoundary />} />
+              <Route path="/services" element={<Services />} errorElement={<ErrorBoundary />} />
+              <Route path="/contact" element={<Contact />} errorElement={<ErrorBoundary />} />
+              <Route path="/home" element={<Home />} errorElement={<ErrorBoundary />} />
+              <Route path="/test-error" element={<TestError />} errorElement={<ErrorBoundary />} />
+              <Route path="*" element={<Navigate to="/" replace />} errorElement={<ErrorBoundary />} />
             </Routes>
           </Suspense>
         </main>

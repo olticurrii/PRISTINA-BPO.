@@ -97,11 +97,11 @@ export const services = {
     },
     {
       title: "Kontabiliteti",
-      description: "Shërbime profesionale kontabiliteti duke përfshirë regjistrat financiarë, menaxhimin e pagave dhe përgatitjen e taksave për të mbajtur biznesin tuaj të përputhshëm dhe të organizuar."
+      description: "Shërbime kontabilitare profesionale përfshirë kërkime, menaxhimin e pagesave dhe përgatitjen e pajtimit të të dhënave për të siguruar ndjekjen e biznesit dhe organizimin e tij."
     },
     {
       title: "Zhvillimi i Softuerit",
-      description: "Zgjidhje softuerike të personalizuara, aplikacione web dhe aplikacione mobile të zhvilluara me teknologji të avancuara për të drejtuar biznesin tuaj përpara."
+      description: "Zgjidhje të brendshme të softuerit, aplikacioneve web dhe aplikacioneve mobile zhvilluara me teknologji të reja për të ndihmuar biznesit të shkoni përpara."
     },
     {
       title: "Dizajni Grafik",

@@ -129,7 +129,7 @@ export default function Contact() {
     
     // Check if email is valid before submitting
     if (!emailValidation.isValid) {
-      setError("Please enter a valid email address before submitting");
+      setError(t.contact.pleaseEnterValidEmail);
       return;
     }
 
@@ -158,7 +158,7 @@ export default function Contact() {
       })
       .catch((err) => {
         console.log('FAILED...', err);
-        setError('Failed to send message. Please try again or contact us directly.');
+        setError(t.contact.failedToSend);
       })
       .finally(() => {
         setIsLoading(false);
@@ -181,10 +181,9 @@ export default function Contact() {
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-neutral-800 mb-6">Get in Touch</h3>
+              <h3 className="text-2xl font-bold text-neutral-800 mb-6">{t.contact.getInTouch}</h3>
               <p className="text-neutral-600 leading-relaxed mb-8">
-                We're here to help you find the perfect outsourcing solution for your business. 
-                Reach out to us and let's start a conversation about your needs.
+                {t.contact.helpDescription}
               </p>
             </div>
             
@@ -196,8 +195,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-neutral-800">Location</h4>
-                  <p className="text-neutral-600">Pristina, Kosovo</p>
+                  <h4 className="font-semibold text-neutral-800">{t.contact.location}</h4>
+                  <p className="text-neutral-600">{t.contact.locationValue}</p>
                 </div>
               </div>
               
@@ -209,8 +208,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-neutral-800">Email</h4>
-                  <p className="text-neutral-600">info@pristinabpo.com</p>
+                  <h4 className="font-semibold text-neutral-800">{t.contact.emailLabel}</h4>
+                  <p className="text-neutral-600">{t.contact.emailValue}</p>
                 </div>
               </div>
             </div>
@@ -218,7 +217,7 @@ export default function Contact() {
 
           {/* Contact Form */}
           <div className="contact-form mb-12">
-            <h3 className="text-2xl font-bold text-neutral-800 mb-6">Send us a Message</h3>
+            <h3 className="text-2xl font-bold text-neutral-800 mb-6">{t.contact.sendMessage}</h3>
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <input
@@ -275,7 +274,7 @@ export default function Contact() {
               <input
                 type="text"
                 name="company"
-                placeholder="Company Name"
+                placeholder={t.contact.companyName}
                 value={form.company}
                 onChange={handleChange}
                 className="contact-form input"
@@ -299,10 +298,10 @@ export default function Contact() {
                 {isLoading ? (
                   <div className="flex items-center justify-center space-x-2">
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    <span>Sending...</span>
+                    <span>{t.contact.sending}</span>
                   </div>
                 ) : (
-                  submitted ? 'Message Sent!' : t.contact.send
+                  submitted ? t.contact.messageSent : t.contact.send
                 )}
               </button>
             </form>
@@ -324,7 +323,7 @@ export default function Contact() {
                   <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
-                  <span className="font-medium">Thank you for reaching out! We'll get back to you soon.</span>
+                  <span className="font-medium">{t.contact.thankYou}</span>
                 </div>
               </div>
             )}

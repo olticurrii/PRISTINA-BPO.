@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "../contexts/LanguageContext";
 import { translations } from "../translations/translations";
+import { services } from "../data/data";
 import "../App.css";
 
 export default function Home() {
@@ -11,29 +12,19 @@ export default function Home() {
   const homeRef = useRef(null);
   const { language } = useLanguage();
   const t = translations[language];
+  const currentServices = services[language];
 
-  const services = [
-    {
-      title: t.services.bpo.title,
-      image: "/images/job-5382501_1280.jpg",
-      description: t.services.bpo.description
-    },
-    {
-      title: t.services.customerSupport.title,
-      image: "/images/people-1979261_1280.jpg",
-      description: t.services.customerSupport.description
-    },
-    {
-      title: t.services.backOffice.title,
-      image: "/images/Back-office-operation.jpg",
-      description: t.services.backOffice.description
-    },
-    {
-      title: t.services.itSupport.title,
-      image: "/images/secretary-544180_1280.jpg",
-      description: t.services.itSupport.description
-    }
-  ];
+  // Use first 4 services from the data file for the home page
+  const homeServices = currentServices.slice(0, 4).map((service, index) => ({
+    title: service.title,
+    image: [
+      "/images/job-5382501_1280.jpg",
+      "/images/people-1979261_1280.jpg", 
+      "/images/Back-office-operation.jpg",
+      "/images/secretary-544180_1280.jpg"
+    ][index],
+    description: service.description
+  }));
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -82,7 +73,7 @@ export default function Home() {
           {t.home.servicesDesc}
         </p>
         <div className="home-services-grid">
-          {services.map((service, index) => (
+          {homeServices.map((service, index) => (
             <div key={index} className="home-service-card group">
               <img 
                 src={service.image} 

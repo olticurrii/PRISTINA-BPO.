@@ -27,18 +27,17 @@ export default function Footer() {
               />
               <div>
                 <h3 className="text-xl font-bold text-white">Pristina BPO</h3>
-                <p className="text-neutral-300 text-sm">Outsourcing Excellence</p>
+                <p className="text-neutral-300 text-sm">{t.footer.tagline}</p>
               </div>
             </div>
             <p className="text-neutral-300 leading-relaxed">
-              Your trusted outsourcing partner in Pristina, Kosovo. 
-              We help businesses streamline operations and scale efficiently.
+              {t.footer.description}
             </p>
           </div>
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white">Contact Information</h4>
+            <h4 className="text-lg font-semibold text-white">{t.footer.contactInfo}</h4>
             <div className="space-y-2 text-neutral-300">
               <p className="flex items-center space-x-2">
                 <svg className="w-4 h-4 text-accent" fill="currentColor" viewBox="0 0 20 20">
@@ -60,7 +59,7 @@ export default function Footer() {
           <div className="space-y-4">
             <h4 className="text-lg font-semibold text-white">{t.footer.followUs}</h4>
             <p className="text-neutral-300">
-              Stay connected with us on social media for the latest updates and insights.
+              {t.footer.stayConnected}
             </p>
             <div className="footer-icons">
              
@@ -77,13 +76,13 @@ export default function Footer() {
         {/* Copyright */}
         <div className="border-t border-neutral-800 mt-8 pt-8 text-center">
           <p className="text-neutral-400">
-            © 2025 Pristina BPO. {t.footer.rights} | 
-            <a href="/privacy" className="text-accent hover:text-accent-light transition-colors duration-300 ml-1">
-              Privacy Policy
+            © 2025 Pristina BPO. {t.footer.rights} 
+            {/* <a href="/privacy" className="text-accent hover:text-accent-light transition-colors duration-300 ml-1">
+              {t.footer.privacyPolicy}
             </a> | 
             <a href="/terms" className="text-accent hover:text-accent-light transition-colors duration-300 ml-1">
-              Terms of Service
-            </a>
+              {t.footer.termsOfService}
+            </a> */}
           </p>
         </div>
       </div>

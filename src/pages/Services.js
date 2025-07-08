@@ -102,10 +102,10 @@ export default function Services() {
         {/* Call to Action */}
         <div className={`text-center mt-16 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h3 className="text-2xl md:text-3xl font-bold text-neutral-800 mb-6">
-            Ready to Transform Your Business?
+            {t.servicesPage.readyToTransform}
           </h3>
           <p className="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
-            Let's discuss how our outsourcing solutions can help your business grow and succeed.
+            {t.servicesPage.discussSolutions}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/contact" className="learn-more-btn">
