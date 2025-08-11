@@ -2,6 +2,7 @@
   "name": "pristina-bpo",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://pristinabpo.com",
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "react": "^18.2.0",
