@@ -89,7 +89,7 @@ export const translations = {
       location: "Location",
       locationValue: "Pristina, Kosovo",
       emailLabel: "Email",
-      emailValue: "info@pristinabpo.com",
+      emailValue: "pristinabpoteam@pristinadata.com",
       sendMessage: "Send us a Message",
       companyName: "Company Name",
       sending: "Sending...",
