@@ -81,23 +81,23 @@
     @apply max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-8 md:pt-16 lg:pt-24 relative z-10;
   }
 
-  .home-content h1 {
-    @apply text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 text-center md:text-left;
+  .home-title {
+    @apply text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 text-center;
     @apply bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent;
-    @apply leading-tight;
+    @apply leading-tight tracking-tight;
   }
 
-  .home-content h2 {
-    @apply text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold mb-8 md:mb-10 text-center md:text-left;
-    @apply text-neutral-700;
+  .home-subtitle {
+    @apply text-xl md:text-2xl lg:text-3xl font-medium mb-8 text-center;
+    @apply text-neutral-600;
     @apply leading-relaxed;
   }
 
-  .home-intro {
-    @apply text-base md:text-lg lg:text-xl leading-relaxed mb-10 md:mb-12 
-           max-w-4xl text-center md:text-left
+  .home-intro-short {
+    @apply text-lg md:text-xl lg:text-2xl leading-relaxed mb-8 
+           max-w-3xl mx-auto text-center
            text-neutral-600;
-    @apply font-medium;
+    @apply font-normal;
   }
 
   .home-logo-faded {
@@ -124,15 +124,33 @@
 
   .learn-more-btn {
     @apply inline-flex items-center justify-center
-           bg-gradient-to-r from-accent to-accent-dark text-white 
            px-8 md:px-10 py-4 md:py-5
            rounded-xl text-base md:text-lg font-semibold 
-           hover:bg-gradient-to-r hover:from-accent-dark hover:to-accent
            transition-all duration-300
-           shadow-accent hover:shadow-xl
            transform hover:-translate-y-1
            mx-auto md:mx-0 block
-           border-0 outline-none focus:ring-4 focus:ring-accent focus:ring-opacity-30;
+           border-0 outline-none focus:ring-4 focus:ring-opacity-30;
+  }
+
+  .primary-btn {
+    @apply bg-gradient-to-r from-accent to-accent-dark text-white 
+           hover:bg-gradient-to-r hover:from-accent-dark hover:to-accent
+           shadow-accent hover:shadow-xl
+           focus:ring-accent;
+  }
+
+  .secondary-btn {
+    @apply bg-white text-primary border-2 border-primary
+           hover:bg-primary hover:text-white
+           shadow-professional hover:shadow-xl
+           focus:ring-primary;
+  }
+
+  .outline-btn {
+    @apply bg-transparent text-primary border-2 border-primary
+           hover:bg-primary hover:text-white
+           shadow-professional hover:shadow-xl
+           focus:ring-primary;
   }
 
   .about-bg {
@@ -325,14 +343,14 @@
     @apply max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-16 md:py-24;
   }
 
-  .home-services h2 {
-    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-8 md:mb-12;
+  .services-section-title {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4;
     @apply bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent;
   }
 
-  .home-services-desc {
-    @apply text-lg md:text-xl text-neutral-600 text-center max-w-4xl mx-auto mb-12 md:mb-16;
-    @apply font-medium leading-relaxed;
+  .services-section-subtitle {
+    @apply text-lg md:text-xl text-neutral-500 text-center max-w-2xl mx-auto;
+    @apply font-normal leading-relaxed;
   }
 
   .home-services-grid {
@@ -363,9 +381,14 @@
     background: linear-gradient(to top, rgba(30, 58, 138, 0.9), rgba(30, 58, 138, 0.5), transparent);
   }
 
-  .home-service-overlay h3 {
+  .service-title {
     @apply text-white text-lg md:text-xl font-bold
-           leading-tight;
+           leading-tight mb-2;
+  }
+
+  .service-short-desc {
+    @apply text-white/80 text-sm font-medium
+           leading-relaxed;
   }
 
   /* Lazy loading animations */
@@ -418,16 +441,16 @@
 
   /* Additional mobile responsiveness improvements */
   @media (max-width: 768px) {
-    .home-content h1 {
-      @apply text-3xl md:text-4xl;
+    .home-title {
+      @apply text-4xl md:text-5xl;
     }
     
-    .home-content h2 {
+    .home-subtitle {
       @apply text-lg md:text-xl;
     }
     
-    .home-intro {
-      @apply text-sm md:text-base;
+    .home-intro-short {
+      @apply text-base md:text-lg;
     }
     
     .learn-more-btn {
