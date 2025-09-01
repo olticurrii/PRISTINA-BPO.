@@ -258,7 +258,7 @@ export const translations = {
       location: "Vendndodhja",
       locationValue: "Prishtinë, Kosovë",
       emailLabel: "Emaili",
-      emailValue: "info@pristinabpo.com",
+      emailValue: "pristinabpoteam@pristinadata.com",
       sendMessage: "Na Dërgoni një Mesazh",
       companyName: "Emri i Kompanisë",
       sending: "Duke Dërguar...",
