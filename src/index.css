@@ -85,6 +85,7 @@
     @apply text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 text-center;
     @apply bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent;
     @apply leading-tight tracking-tight;
+    margin-top: 100px;
   }
 
   .home-subtitle {
@@ -340,11 +341,11 @@
   }
 
   .home-services {
-    @apply max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-16 md:py-24;
+    @apply max-w-7xl mx-auto px-4 md:px-8 lg:px-12 py-28 md:py-48;
   }
 
   .services-section-title {
-    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-4 mt-24 md:mt-28;
     @apply bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent;
   }
 
@@ -455,6 +456,11 @@
     
     .learn-more-btn {
       @apply px-6 py-3 text-sm;
+    }
+    
+    .services-section-title {
+      @apply mt-24;
+      margin-top: calc(6rem + 100px);
     }
     
     .about-sidebar {
