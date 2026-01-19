@@ -46,7 +46,7 @@ export default function Contact() {
 
     // Use Abstract API for comprehensive email validation
     try {
-      const emailCheckResponse = await fetch(`https://emailvalidation.abstractapi.com/v1/?api_key=d464d3ad2c4f45baa8e9fcf56dbafcb3&email=${email}`);
+      const emailCheckResponse = await fetch(`https://emailvalidation.abstractapi.com/v1/?api_key=${process.env.api_key}${email}`);
       const emailData = await emailCheckResponse.json();
       
       // Check if email is valid and deliverable
